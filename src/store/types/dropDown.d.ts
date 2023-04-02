@@ -2,6 +2,10 @@ export interface DropDownState {
   year: number | null;
   county: string;
   district: string;
+  isYearShow:boolean;
+  isCountyShow:boolean;
+  isDistrictShow:boolean;
+  districtList?:[];
   [key: string];
 }
 export interface DropDownAction {
