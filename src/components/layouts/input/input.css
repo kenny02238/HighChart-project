@@ -1,0 +1,17 @@
+.border-container {
+}
+
+.border-container::before {
+  content: "年份";
+  position: absolute;
+  top: -5px;
+  left: 11px;
+  width: 30px;
+  height: 10px;
+  background-color: #ffffff;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #b6b6b6;
+}

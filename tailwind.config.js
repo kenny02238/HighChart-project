@@ -6,6 +6,17 @@ module.exports = {
       sans: ['Noto Sans TC', 'sans-serif'],
       ubuntu: ['Ubuntu','sans-serif'],
     },
+    letterSpacing: {
+      tightest: '-.075em',
+      tighter: '-.05em',
+      tight: '-.025em',
+      normal: '0',
+      wide: '.025em',
+      wider: '.05em',
+      widest: '.1em',
+      widest: '.25em',
+      taiwan: '.18em',
+    },
     fontWeight:{
       hairline: '100',
       extralight: '200',
@@ -16,7 +27,10 @@ module.exports = {
       bold: '700',
       'extra-bold': '800',
       black: '900',
-    }
+    },
+    extend: {
+      
+    },
   },
   plugins: [],
 };
