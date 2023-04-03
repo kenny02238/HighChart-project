@@ -8,6 +8,7 @@ export default function HomePage() {
       <div className="mt-[8px]">
         <Aside />
         <Main />
+
       </div>
     </div>
   );

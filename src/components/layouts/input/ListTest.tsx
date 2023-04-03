@@ -1,5 +1,7 @@
+/* eslint-disable max-len */
 import React, { useContext, useEffect } from 'react';
 import { nanoid } from 'nanoid';
+import { useParams } from 'react-router-dom';
 import { DropDownContext } from '../../../store/contexts';
 
 type Props = {
@@ -10,9 +12,11 @@ type Props = {
 
 export default function ListTest({ lists, value, show }:Props) {
   const { dropDownState, dropDownDispatch } = useContext(DropDownContext);
+  const { year, county, district } = useParams();
+
   useEffect(() => {
     const fetchDistrict = async () => {
-      if (dropDownState.district !== '請先選擇縣/市') { dropDownDispatch({ type: 'district', payload: { value: '' } }); }
+      if (dropDownState.district !== '請先選擇縣/市' && county !== dropDownState.county) { dropDownDispatch({ type: 'district', payload: { value: '' } }); }
       try {
         const encodedCounty = encodeURIComponent(dropDownState.county);
         const res = await fetch(`https://www.ris.gov.tw/rs-opendata/api/v1/datastore/ODRP019/${dropDownState.year}?COUNTY=${encodedCounty}`);
@@ -28,9 +32,8 @@ export default function ListTest({ lists, value, show }:Props) {
       }
     };
     fetchDistrict();
-  }, [dropDownState.county]);
+  }, [dropDownState.county, year, county, district]);
 
-  // eslint-disable-next-line max-len
   const handleList:React.MouseEventHandler<HTMLButtonElement> = (e:React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLElement;
     dropDownDispatch({ type: value, payload: { value: target.textContent } });
@@ -39,20 +42,36 @@ export default function ListTest({ lists, value, show }:Props) {
   const handleListClick = (event:React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
-  const renderList = () => lists.map((list) => (
-    <button
-      type="button"
-      key={nanoid(8)}
-      className="hover:bg-slate-200 w-full px-5 py-[6px] flex items-center"
-      onClick={handleList}
-      onMouseDown={handleListClick}
-    >
-      {list}
-    </button>
-  ));
+  const renderList = () => {
+    const filteredList = lists.filter((list) => list.toString().includes(dropDownState[value]));
+    if (value === 'year') {
+      return lists.map((list) => (
+        <button
+          type="button"
+          key={nanoid(8)}
+          className="hover:bg-slate-200 w-full px-5 py-[6px] flex items-center bg-white"
+          onClick={handleList}
+          onMouseDown={handleListClick}
+        >
+          {list}
+        </button>
+      ));
+    }
+    return filteredList.map((list) => (
+      <button
+        type="button"
+        key={nanoid(8)}
+        className="hover:bg-slate-200 w-full px-5 py-[6px] flex items-center bg-white"
+        onClick={handleList}
+        onMouseDown={handleListClick}
+      >
+        {list}
+      </button>
+    ));
+  };
 
   return (
-    <div className={`w-full h-[258px]  ${dropDownState[show] || 'hidden'}  z-10 overflow-scroll shadow-[0px_4px_2px_rgba(0,0,0,0.25)] cursor-pointer`}>
+    <div className={`w-full h-[258px]  ${dropDownState[show] || 'hidden'} absolute z-10 overflow-scroll shadow-[0px_4px_2px_rgba(0,0,0,0.25)] bg-white cursor-pointer`}>
       {renderList()}
     </div>
   );

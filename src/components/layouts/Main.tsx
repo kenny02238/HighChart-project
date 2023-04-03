@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 // import { Input } from './input';
+import { useNavigate } from 'react-router-dom';
 import ListTest from './input/ListTest';
 import InputTest from './input/InputTest';
 import { year, county } from '../../constant/constant';
@@ -7,12 +8,10 @@ import { DropDownContext } from '../../store/contexts';
 
 export default function Main() {
   const { dropDownState } = useContext(DropDownContext);
+  const navigate = useNavigate();
   const handleSubmit = async (e:React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log(11);
-    // const encodedCounty = encodeURIComponent(dropDownState.county);
-    // const res = await fetch(`https://www.ris.gov.tw/rs-opendata/api/v1/datastore/ODRP019/${dropDownState.year}?COUNTY=${encodedCounty}`);
-    // const response = await res.json();
+    navigate(`/bigdata-pretest/${dropDownState.year}/${dropDownState.county}/${dropDownState.district}`);
   };
   const isDisableSubmit = dropDownState.district === '' || dropDownState.county === '' || dropDownState.district === '請先選擇縣/市' || dropDownState.county === '請選擇縣/市';
   return (
@@ -21,15 +20,15 @@ export default function Main() {
         <div className="text-[32px] mt-[16px]">人口數、戶數按戶別及性別統計</div>
 
         <div className="mt-[48px] leading-[48px] w-full flex justify-center items-center">
-          <div>
+          <div className="relative">
             <InputTest show="isYearShow" value="year" title="年份" />
             <ListTest lists={year} show="isYearShow" value="year" />
           </div>
-          <div>
+          <div className="mx-[1.2%] relative">
             <InputTest show="isCountyShow" value="county" title="縣/市" />
             <ListTest lists={county} show="isCountyShow" value="county" />
           </div>
-          <div>
+          <div className="mr-[1.2%] relative">
             <InputTest show="isDistrictShow" value="district" title="區" />
             {dropDownState.districtList && <ListTest lists={dropDownState.districtList} show="isDistrictShow" value="district" />}
           </div>
@@ -37,14 +36,19 @@ export default function Main() {
             type="submit"
             onClick={handleSubmit}
             disabled={isDisableSubmit}
-            className={`border flex justify-center items-center bg-black/[0.12] w-[83px] rounded ${isDisableSubmit && 'cursor-not-allowed'}`}
+            className={`border flex justify-center items-center bg-black/[0.12] w-[83px] h-[36.5px] rounded ${isDisableSubmit && 'cursor-not-allowed'}`}
           >
             <div className="font-ubuntu font-bold text-[14px] text-[#00000042]/[0.26]">Submit</div>
           </button>
         </div>
         <div className="w-full flex justify-center" />
-        <div className="mt-[42px] leading-[32px] w-full border">
-          123
+        <div className="mt-[42px] leading-[32px] w-full relative h-[32px] flex justify-center items-center">
+          <div className="w-full border-[#C29FFF] border-[0.5px]" />
+          <div className="absolute bg-white w-[98px] flex justify-center items-center">
+            <div className="text-[13px] px-[13px] text-[#B388FF] border border-[#B388FF] rounded-2xl">
+              搜尋結果
+            </div>
+          </div>
         </div>
       </div>
     </main>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route, BrowserRouter as Router } from 'react-router-dom';
-import { HomePage, ErrorPage } from './components/pages';
+import { HomePage, ErrorPage, DataPage } from './components/pages';
 import { DropDownProvider } from './store/contexts/DropDownProvider';
 
 function App() {
@@ -10,6 +10,7 @@ function App() {
         <Routes>
           <Route path="*" element={<ErrorPage />} />
           <Route path="/bigdata-pretest" element={<HomePage />} />
+          <Route path="/bigdata-pretest/:year/:county/:district" element={<DataPage />} />
         </Routes>
       </DropDownProvider>
     </Router>

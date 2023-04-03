@@ -48,6 +48,7 @@ export default function InputTest({ show, value, title }:Props) {
   const isShowCross = value !== 'year' && dropDownState[value] !== '請選擇縣/市' && dropDownState[value] !== '請先選擇縣/市' && dropDownState[value] !== '';
   const isInputInit = dropDownState[value] === '請選擇縣/市' || dropDownState[value] === '請先選擇縣/市';
   const validDistrict = (value !== 'year' && value !== 'county') && (dropDownState.county === '' || dropDownState.county === '請選擇縣/市' || dropDownState.county === '');
+  const inputDisable = (value !== 'year' && value !== 'county') && (dropDownState.county === '' || dropDownState.county === '請選擇縣/市');
   return (
     <div
       className={`border rounded-[4px] ${value === 'year' ? 'w-[73px]' : 'w-[165px]'} 
@@ -66,13 +67,13 @@ export default function InputTest({ show, value, title }:Props) {
       </div>
       <input
         className={`w-[65%] h-full outline-none flex items-center ml-[16px] bg-white text-[16px] 
-        ${isInputInit ? 'text-[#b6b6b6]' : 'text-[#333333]'} `}
+        ${isInputInit ? 'text-[#b6b6b6]' : 'text-[#333333]'} ${inputDisable && 'cursor-not-allowed'}`}
         onChange={handleInputChange}
         onClick={clearInit}
         onBlur={handleBlurInput}
         value={dropDownState[value]}
         type="text"
-        disabled={(value !== 'year' && value !== 'county') && (dropDownState.county === '' || dropDownState.county === '請選擇縣/市')}
+        disabled={inputDisable}
       />
       {isShowCross && (
       <div onClick={handleCross}>
@@ -86,14 +87,14 @@ export default function InputTest({ show, value, title }:Props) {
       <button
         onClick={handleInput}
         type="button"
-        disabled={(value !== 'year' && value !== 'county') && (dropDownState.county === '' || dropDownState.county === '請選擇縣/市')}
+        disabled={inputDisable}
       >
         <img
           src={arrowDropDown}
           alt="Gear"
           className={`w-[24px] h-[24px] absolute right-[3.6%]
           ${dropDownState[show] && 'rotate-[180deg]'} ${value === 'year' && 'right-[8.21%]'} 
-          ${dropDownState[show] ? 'top-[6px]' : 'top-[8px]'}`}
+          ${dropDownState[show] ? 'top-[6px]' : 'top-[8px]'} ${inputDisable && 'cursor-not-allowed'}`}
         />
       </button>
     </div>
