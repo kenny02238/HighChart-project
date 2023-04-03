@@ -1,6 +1,6 @@
 export {};
-export const year:number[] = [106, 107, 108, 109, 110, 111];
-export const county:string[] = [
+export const yearData:number[] = [106, 107, 108, 109, 110, 111];
+export const countyData:string[] = [
   '臺北市',
   '基隆市',
   '新北市',

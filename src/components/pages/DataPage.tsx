@@ -1,14 +1,17 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Header, Aside, Main } from '../layouts';
-import { DropDownContext } from '../../store/contexts';
+import { DropDownContext, ChartContext } from '../../store/contexts';
 import { Accumulator, CurrentValue } from './types/dataPage';
 import roller from './styles/dataPage.module.css';
 
 export default function DataPage() {
   const { year, county, district } = useParams();
   const { dropDownDispatch } = useContext(DropDownContext);
+  const { chartDispatch } = useContext(ChartContext);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchChartData = async () => {
       setIsLoading(true);
@@ -20,24 +23,40 @@ export default function DataPage() {
         const encodedDistrict = encodeURIComponent(district as string);
         const res = await fetch(`https://www.ris.gov.tw/rs-opendata/api/v1/datastore/ODRP019/${year}?COUNTY=${encodedCounty}&TOWN=${encodedDistrict}`);
         const response = await res.json();
-        const initialValue = { ordinaryTotal: 0, singleTotal: 0 };
+        const initialValue = { dataMale: [0, 0], dataFemale: [0, 0] };
         const totals = response.responseData.reduce(
           (accumulator:Accumulator, currentValue:CurrentValue) => {
-            // eslint-disable-next-line @typescript-eslint/naming-convention
-            const { household_ordinary_total, household_single_total } = currentValue;
+            const {
+              // eslint-disable-next-line @typescript-eslint/naming-convention
+              household_ordinary_m, household_business_m, household_single_m,
+              // eslint-disable-next-line @typescript-eslint/naming-convention
+              household_ordinary_f, household_business_f, household_single_f,
+            } = currentValue;
             return {
-              ordinaryTotal: accumulator.ordinaryTotal + parseInt(household_ordinary_total, 10),
-              singleTotal: accumulator.singleTotal + parseInt(household_single_total, 10),
+              dataMale: [
+                // eslint-disable-next-line max-len
+                accumulator.dataMale[0] + parseInt(household_ordinary_m, 10) + parseInt(household_business_m, 10),
+                accumulator.dataMale[1] + parseInt(household_single_m, 10),
+              ],
+              dataFemale: [
+                // eslint-disable-next-line max-len
+                accumulator.dataFemale[0] + parseInt(household_ordinary_f, 10) + parseInt(household_business_f, 10),
+                accumulator.dataFemale[1] + parseInt(household_single_f, 10),
+              ],
             };
           },
           initialValue,
         );
+        chartDispatch({ type: 'barChart', payload: { value: totals } });
         console.log(response);
-        console.log(totals.ordinaryTotal); // 3060
-        console.log(totals.singleTotal); // 28
+        console.log(totals.dataMale);
+        console.log(totals.dataFemale);
         setIsLoading(false);
       } catch (err) {
-        console.log(err);
+        // 暫用alert處理err
+        // eslint-disable-next-line no-alert
+        alert(err);
+        navigate('/bigdata-pretest');
       }
     };
     fetchChartData();

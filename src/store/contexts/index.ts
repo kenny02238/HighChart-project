@@ -1,5 +1,6 @@
 import { createContext } from 'react';
 import { DropDownContextType } from '../types/dropDown';
+import { ChartContextType } from '../types/chart';
 
 export const DropDownContext = createContext<DropDownContextType>({
   dropDownState: {
@@ -12,4 +13,14 @@ export const DropDownContext = createContext<DropDownContextType>({
     districtList: [],
   },
   dropDownDispatch: () => {},
+});
+
+export const ChartContext = createContext<ChartContextType>({
+  chartState: {
+    barChart: {
+      dataMale: [0, 0],
+      dataFemale: [0, 0],
+    },
+  },
+  chartDispatch: () => {},
 });
