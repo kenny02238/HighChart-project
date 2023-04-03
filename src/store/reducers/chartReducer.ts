@@ -10,6 +10,11 @@ export const chartReducer = (
         ...state,
         barChart: action.payload!.value,
       };
+    case 'pieChart':
+      return {
+        ...state,
+        pieChart: action.payload!.value,
+      };
     default:
       return state;
   }

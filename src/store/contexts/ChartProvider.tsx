@@ -8,6 +8,10 @@ const initialState: ChartState = {
     dataMale: [0, 0],
     dataFemale: [0, 0],
   },
+  pieChart: {
+    common: 0,
+    alone: 0,
+  },
 };
 
 export function ChartProvider({

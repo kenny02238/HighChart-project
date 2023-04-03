@@ -2,7 +2,9 @@ import React, { useEffect, useContext, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Header, Aside, Main } from '../layouts';
 import { DropDownContext, ChartContext } from '../../store/contexts';
-import { Accumulator, CurrentValue } from './types/dataPage';
+import {
+  AccumulatorBar, CurrentValueBar, AccumulatorPie, CurrentValuePie,
+} from './types/dataPage';
 import roller from './styles/dataPage.module.css';
 
 export default function DataPage() {
@@ -23,9 +25,9 @@ export default function DataPage() {
         const encodedDistrict = encodeURIComponent(district as string);
         const res = await fetch(`https://www.ris.gov.tw/rs-opendata/api/v1/datastore/ODRP019/${year}?COUNTY=${encodedCounty}&TOWN=${encodedDistrict}`);
         const response = await res.json();
-        const initialValue = { dataMale: [0, 0], dataFemale: [0, 0] };
-        const totals = response.responseData.reduce(
-          (accumulator:Accumulator, currentValue:CurrentValue) => {
+        const barInitialValue = { dataMale: [0, 0], dataFemale: [0, 0] };
+        const barChartData = response.responseData.reduce(
+          (accumulator:AccumulatorBar, currentValue:CurrentValueBar) => {
             const {
               // eslint-disable-next-line @typescript-eslint/naming-convention
               household_ordinary_m, household_business_m, household_single_m,
@@ -45,12 +47,29 @@ export default function DataPage() {
               ],
             };
           },
-          initialValue,
+          barInitialValue,
         );
-        chartDispatch({ type: 'barChart', payload: { value: totals } });
+        const pieInitialValue = { common: 0, alone: 0 };
+        const pieChartData = response.responseData.reduce(
+          (accumulator:AccumulatorPie, currentValue:CurrentValuePie) => {
+            const {
+              // eslint-disable-next-line @typescript-eslint/naming-convention
+              household_ordinary_total, household_business_total, household_single_total,
+            } = currentValue;
+            return {
+              // eslint-disable-next-line max-len
+              common: accumulator.common + parseInt(household_ordinary_total, 10) + parseInt(household_business_total, 10),
+              alone: accumulator.alone + parseInt(household_single_total, 10),
+            };
+          },
+          pieInitialValue,
+        );
+        chartDispatch({ type: 'barChart', payload: { value: barChartData } });
+        chartDispatch({ type: 'pieChart', payload: { value: pieChartData } });
         console.log(response);
-        console.log(totals.dataMale);
-        console.log(totals.dataFemale);
+        console.log(pieChartData);
+        // console.log(totals.dataMale);
+        // console.log(totals.dataFemale);
         setIsLoading(false);
       } catch (err) {
         // 暫用alert處理err

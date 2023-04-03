@@ -2,6 +2,10 @@ export interface ChartState {
   barChart: {
     dataMale: number[],
     dataFemale: number[],
+  };
+  pieChart:{
+    common:number;
+    alone:number;
   }
   [key: string];
 }
