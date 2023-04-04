@@ -5,6 +5,8 @@ import { DropDownContext, ChartContext } from '../../store/contexts';
 import {
   AccumulatorBar, CurrentValueBar, AccumulatorPie, CurrentValuePie,
 } from './types/dataPage';
+import { updateBarChartData, updatePieChartData } from '../../store/actions/chartAction';
+import { upDateDropDownData } from '../../store/actions/dropDownAction';
 import roller from './styles/dataPage.module.css';
 
 export default function DataPage() {
@@ -17,9 +19,10 @@ export default function DataPage() {
   useEffect(() => {
     const fetchChartData = async () => {
       setIsLoading(true);
-      dropDownDispatch({ type: 'county', payload: { value: county } });
-      dropDownDispatch({ type: 'district', payload: { value: district } });
-      dropDownDispatch({ type: 'year', payload: { value: year } });
+      dropDownDispatch(upDateDropDownData(county, county));
+      dropDownDispatch(upDateDropDownData(district, district));
+      dropDownDispatch(upDateDropDownData(year, year));
+
       try {
         const encodedCounty = encodeURIComponent(county as string);
         const encodedDistrict = encodeURIComponent(district as string);
@@ -64,13 +67,15 @@ export default function DataPage() {
           },
           pieInitialValue,
         );
-        chartDispatch({ type: 'barChart', payload: { value: barChartData } });
-        chartDispatch({ type: 'pieChart', payload: { value: pieChartData } });
+        chartDispatch(updateBarChartData('barChart', barChartData));
+        chartDispatch(updatePieChartData('pieChart', pieChartData));
         setIsLoading(false);
       } catch (err) {
         // 暫用alert處理err
         // eslint-disable-next-line no-alert
-        alert(err);
+        alert('查無資料');
+        dropDownDispatch(upDateDropDownData(county, ''));
+        dropDownDispatch(upDateDropDownData(district, ''));
         navigate('/bigdata-pretest');
       }
     };

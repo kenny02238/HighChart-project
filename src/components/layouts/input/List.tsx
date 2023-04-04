@@ -3,6 +3,7 @@ import React, { useContext, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import { useParams } from 'react-router-dom';
 import { DropDownContext } from '../../../store/contexts';
+import { upDateDropDownData, upDateDropDownShow } from '../../../store/actions/dropDownAction';
 
 type Props = {
   lists: any[];
@@ -16,7 +17,9 @@ export default function List({ lists, value, show }:Props) {
 
   useEffect(() => {
     const fetchDistrict = async () => {
-      if (dropDownState.district !== '請先選擇縣/市' && county !== dropDownState.county) { dropDownDispatch({ type: 'district', payload: { value: '' } }); }
+      if (dropDownState.district !== '請先選擇縣/市' && county !== dropDownState.county) {
+        dropDownDispatch(upDateDropDownData('district', ''));
+      }
       try {
         const encodedCounty = encodeURIComponent(dropDownState.county);
         const res = await fetch(`https://www.ris.gov.tw/rs-opendata/api/v1/datastore/ODRP019/${dropDownState.year}?COUNTY=${encodedCounty}`);
@@ -25,7 +28,7 @@ export default function List({ lists, value, show }:Props) {
           const districts = [...new Set<string>(
             response.responseData.map((item:any) => item.site_id.split(' ')[0].replace(dropDownState.county, '')),
           )];
-          dropDownDispatch({ type: 'districtList', payload: { value: districts } });
+          dropDownDispatch(upDateDropDownData('districtList', districts));
         }
       } catch (err) {
         console.log(err);
@@ -36,8 +39,8 @@ export default function List({ lists, value, show }:Props) {
 
   const handleList:React.MouseEventHandler<HTMLButtonElement> = (e:React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLElement;
-    dropDownDispatch({ type: value, payload: { value: target.textContent } });
-    dropDownDispatch({ type: show, payload: { value: false } });
+    dropDownDispatch(upDateDropDownData(value, target.textContent));
+    dropDownDispatch(upDateDropDownShow(show, false));
   };
   const handleListClick = (event:React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();

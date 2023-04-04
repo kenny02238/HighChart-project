@@ -5,6 +5,7 @@ import arrowDropDown from '../../../assets/images/arrow_drop_down.png';
 import cross from '../../../assets/images/cross.png';
 import { DropDownContext } from '../../../store/contexts';
 import { countyData } from '../../../constant/constant';
+import { upDateDropDownShow, upDateDropDownData, upDateDropDownAllShow } from '../../../store/actions/dropDownAction';
 
 type Props = {
   show:string;
@@ -17,48 +18,48 @@ export default function Input({ show, value, title }:Props) {
 
   const handleDropDownBtn:MouseEventHandler<HTMLButtonElement> = () => {
     if (!dropDownState[show]) { dropDownDispatch({ type: value, payload: { value: '' } }); }
-    dropDownDispatch({ type: show, payload: { value: !dropDownState[show] } });
+    dropDownDispatch(upDateDropDownShow(show, !dropDownState[show]));
   };
 
   const handleCross = useCallback((event: React.MouseEvent<HTMLDivElement>) => {
     event.stopPropagation();
-    dropDownDispatch({ type: value, payload: { value: '' } });
+    dropDownDispatch(upDateDropDownData(value, ''));
     if (value === 'county') {
-      dropDownDispatch({ type: 'district', payload: { value: '' } });
+      dropDownDispatch(upDateDropDownData('district', ''));
     }
-    dropDownDispatch({ type: 'closeAllShow' });
+    dropDownDispatch(upDateDropDownAllShow('closeAllShow'));
   }, [dropDownDispatch, value]);
 
   const handleInputChange = (event:React.ChangeEvent<HTMLInputElement>) => {
-    dropDownDispatch({ type: value, payload: { value: event.target.value } });
+    dropDownDispatch(upDateDropDownData(value, event.target.value));
   };
 
   const clearInit = useCallback(() => {
     if (dropDownState[value] === '請選擇縣/市' || dropDownState[value] === '請先選擇縣/市') {
-      dropDownDispatch({ type: value, payload: { value: '' } });
+      dropDownDispatch(upDateDropDownData(value, ''));
     }
-    dropDownDispatch({ type: show, payload: { value: true } });
+    dropDownDispatch(upDateDropDownShow(show, true));
   }, [dropDownDispatch, value, show]);
 
   const handleBlurInput = useCallback((e: React.FocusEvent<HTMLInputElement>) => {
     if (dropDownState[show] && !containerRef.current?.contains(e.relatedTarget as Node)) {
-      dropDownDispatch({ type: show, payload: { value: false } });
+      dropDownDispatch(upDateDropDownShow(show, false));
     }
     if (value === 'county' && !countyData.includes(dropDownState.county)) {
       // 暫時用aleat提醒使用者
       alert('請正確選擇縣/市');
-      dropDownDispatch({ type: 'county', payload: { value: '' } });
+      dropDownDispatch(upDateDropDownData('county', ''));
     }
     if (value === 'district' && dropDownState.districtList && !dropDownState.districtList.includes(dropDownState.district)) {
       // 暫時用aleat提醒使用者
       alert('請正確選擇區');
-      dropDownDispatch({ type: 'district', payload: { value: '' } });
+      dropDownDispatch(upDateDropDownData('district', ''));
     }
   }, [dropDownState, dropDownDispatch, show]);
 
   const handleBlurContainer = useCallback((event: React.FocusEvent<HTMLDivElement>) => {
     if (!containerRef.current?.contains(event.relatedTarget as Node)) {
-      dropDownDispatch({ type: show, payload: { value: false } });
+      dropDownDispatch(upDateDropDownShow(show, false));
     }
   }, [containerRef, dropDownDispatch, show]);
 
