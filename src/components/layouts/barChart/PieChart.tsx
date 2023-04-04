@@ -20,7 +20,6 @@ interface LabelPosition {
 
 function PieChart() {
   const { chartState } = useContext(ChartContext);
-  console.log('chartState', chartState.pieChart);
   const data = [
     {
       name: '共同生活',

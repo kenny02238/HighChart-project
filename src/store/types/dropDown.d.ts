@@ -5,7 +5,7 @@ export interface DropDownState {
   isYearShow:boolean;
   isCountyShow:boolean;
   isDistrictShow:boolean;
-  districtList?:[];
+  districtList?:string[];
   [key: string];
 }
 export interface DropDownAction {

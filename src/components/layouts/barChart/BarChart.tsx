@@ -42,6 +42,7 @@ export default function BarChart() {
         align: 'high',
         style: {
           fontWeight: 700,
+          fontSize: '16px',
         },
         rotation: 0,
         y: -20,
