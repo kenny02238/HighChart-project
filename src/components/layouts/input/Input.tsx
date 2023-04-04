@@ -50,7 +50,7 @@ export default function Input({ show, value, title }:Props) {
      && !containerRef.current?.contains(e.relatedTarget as Node)
     ) {
       alert('請正確選擇年份');
-      dropDownDispatch(upDateDropDownData('county', ''));
+      dropDownDispatch(upDateDropDownData('year', '111'));
     }
     if (value === 'county'
     && !countyData.includes(dropDownState.county)
@@ -105,8 +105,9 @@ export default function Input({ show, value, title }:Props) {
         {title}
       </div>
       <input
-        className={`w-[65%] h-full outline-none flex items-center ml-[16px] bg-white text-[16px] 
-        ${isInputInit ? 'text-[#b6b6b6]' : 'text-[#333333]'} ${inputDisable && 'cursor-not-allowed'} sm:w-[75%]`}
+        className={`w-[55%] h-full outline-none flex items-center ml-[16px] bg-white text-[16px] 
+        ${isInputInit ? 'text-[#b6b6b6]' : 'text-[#333333]'} ${inputDisable && 'cursor-not-allowed'}
+         ${value === 'year' ? 'w-[46%] sm:w-[46%]' : 'sm:w-[75%]'}`}
         onChange={handleInputChange}
         onClick={clearInit}
         onBlur={handleBlurInput}

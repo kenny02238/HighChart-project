@@ -1,5 +1,5 @@
 export interface DropDownState {
-  year: number;
+  year: string;
   county: string;
   district: string;
   isYearShow:boolean;

@@ -4,7 +4,7 @@ import { ChartContextType } from '../types/chart';
 
 export const DropDownContext = createContext<DropDownContextType>({
   dropDownState: {
-    year: 111,
+    year: '111',
     county: '請選擇縣/市',
     district: '請先選擇縣/市',
     isYearShow: false,
