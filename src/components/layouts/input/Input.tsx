@@ -45,18 +45,25 @@ export default function Input({ show, value, title }:Props) {
     if (dropDownState[show] && !containerRef.current?.contains(e.relatedTarget as Node)) {
       dropDownDispatch(upDateDropDownShow(show, false));
     }
-    if (value === 'year' && !yearData.includes(dropDownState.year)) {
-      // 暫時用aleat提醒使用者
+    if (value === 'year'
+     && !yearData.includes(dropDownState.year)
+     && !containerRef.current?.contains(e.relatedTarget as Node)
+    ) {
       alert('請正確選擇年份');
       dropDownDispatch(upDateDropDownData('county', ''));
     }
-    if (value === 'county' && !countyData.includes(dropDownState.county)) {
-      // 暫時用aleat提醒使用者
+    if (value === 'county'
+    && !countyData.includes(dropDownState.county)
+    && !containerRef.current?.contains(e.relatedTarget as Node)
+    ) {
       alert('請正確選擇縣/市');
       dropDownDispatch(upDateDropDownData('county', ''));
     }
-    if (value === 'district' && dropDownState.districtList && !dropDownState.districtList.includes(dropDownState.district)) {
-      // 暫時用aleat提醒使用者
+    if (value === 'district'
+    && dropDownState.districtList
+    && !dropDownState.districtList.includes(dropDownState.district)
+    && !containerRef.current?.contains(e.relatedTarget as Node)
+    ) {
       alert('請正確選擇區');
       dropDownDispatch(upDateDropDownData('district', ''));
     }

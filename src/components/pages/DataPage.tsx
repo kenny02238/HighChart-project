@@ -19,9 +19,6 @@ export default function DataPage() {
   useEffect(() => {
     const fetchChartData = async () => {
       setIsLoading(true);
-      dropDownDispatch(upDateDropDownData(county, county));
-      dropDownDispatch(upDateDropDownData(district, district));
-      dropDownDispatch(upDateDropDownData(year, year));
 
       try {
         const encodedCounty = encodeURIComponent(county as string);

@@ -17,9 +17,6 @@ export default function List({ lists, value, show }:Props) {
 
   useEffect(() => {
     const fetchDistrict = async () => {
-      if (dropDownState.district !== '請先選擇縣/市' && county !== dropDownState.county) {
-        dropDownDispatch(upDateDropDownData('district', ''));
-      }
       try {
         const encodedCounty = encodeURIComponent(dropDownState.county);
         const res = await fetch(`https://www.ris.gov.tw/rs-opendata/api/v1/datastore/ODRP019/${dropDownState.year}?COUNTY=${encodedCounty}`);
@@ -35,6 +32,7 @@ export default function List({ lists, value, show }:Props) {
       }
     };
     if (dropDownState.county && dropDownState.year) { fetchDistrict(); }
+    if (!dropDownState.county) { dropDownDispatch(upDateDropDownData('district', '')); }
   }, [dropDownState.county, dropDownState.year, year, county, district]);
 
   const handleList:React.MouseEventHandler<HTMLButtonElement> = (e:React.MouseEvent<HTMLButtonElement>) => {
@@ -52,7 +50,7 @@ export default function List({ lists, value, show }:Props) {
         <button
           type="button"
           key={nanoid(8)}
-          className="hover:bg-slate-200 w-full px-5 py-[6px] flex items-center bg-white"
+          className="hover:bg-slate-200 w-full px-5 flex items-center bg-white"
           onClick={handleList}
           onMouseDown={handleListClick}
         >
@@ -64,7 +62,7 @@ export default function List({ lists, value, show }:Props) {
       <button
         type="button"
         key={nanoid(8)}
-        className="hover:bg-slate-200 w-full px-5 py-[6px] flex items-center bg-white"
+        className="hover:bg-slate-200 w-full px-5 flex items-center bg-white"
         onClick={handleList}
         onMouseDown={handleListClick}
       >

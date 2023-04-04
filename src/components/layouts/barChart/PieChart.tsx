@@ -43,6 +43,9 @@ function PieChart() {
     chart: {
       type: 'pie',
     },
+    accessibility: {
+      enabled: false,
+    },
     plotOptions: {
       pie: {
         allowPointSelect: true,

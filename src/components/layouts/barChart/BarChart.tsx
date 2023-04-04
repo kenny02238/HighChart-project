@@ -17,6 +17,9 @@ export default function BarChart() {
       type: 'column',
       backgroundColor: 'rgba(255, 255, 255, 0)',
     },
+    accessibility: {
+      enabled: false,
+    },
     xAxis: {
       categories: ['共同生活', '獨立生活'],
       title: {
