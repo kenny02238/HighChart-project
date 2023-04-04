@@ -78,7 +78,7 @@ export default function Input({ show, value, title }:Props) {
   return (
     <div
       className={`border rounded-[4px] ${value === 'year' ? 'w-[73px]' : 'w-[165px]'} 
-      h-[40px] relative border-[#B6B6B6] flex flex-wrap items-center 
+      h-[40px] relative border-[#B6B6B6] flex flex-wrap items-center  bg-white
       ${dropDownState[show] && ' border-sky-600 border-[2px]'} ${value === 'year' || 'sm:w-full'}`}
       ref={containerRef}
       onBlur={handleBlurContainer}
@@ -93,7 +93,7 @@ export default function Input({ show, value, title }:Props) {
       </div>
       <input
         className={`w-[65%] h-full outline-none flex items-center ml-[16px] bg-white text-[16px] 
-        ${isInputInit ? 'text-[#b6b6b6]' : 'text-[#333333]'} ${inputDisable && 'cursor-not-allowed'}`}
+        ${isInputInit ? 'text-[#b6b6b6]' : 'text-[#333333]'} ${inputDisable && 'cursor-not-allowed'} sm:w-[75%]`}
         onChange={handleInputChange}
         onClick={clearInit}
         onBlur={handleBlurInput}
