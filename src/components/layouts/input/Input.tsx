@@ -114,6 +114,7 @@ export default function Input({ show, value, title }:Props) {
         value={dropDownState[value]}
         type="text"
         disabled={inputDisable}
+        maxLength={value === 'year' ? 3 : 5}
       />
       {isShowCross && (
       <div onClick={handleCross}>
