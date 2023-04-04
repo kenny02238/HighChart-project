@@ -1,3 +1,3 @@
 # BigData-前測
 
-- [LiveDemo](https://kenny02238.github.io/bigdata-pretest/)
+- [LiveDemo](https://codesandbox.io/p/github/kenny02238/bigdata-pretest/)
