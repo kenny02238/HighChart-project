@@ -76,7 +76,7 @@ export default function DataPage() {
         alert('查無資料');
         dropDownDispatch(upDateDropDownData(county, ''));
         dropDownDispatch(upDateDropDownData(district, ''));
-        navigate('/bigdata-pretest');
+        navigate('/');
       }
     };
     fetchChartData();

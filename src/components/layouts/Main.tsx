@@ -13,7 +13,7 @@ export default function Main() {
   const navigate = useNavigate();
   const handleSubmit = async (e:React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    navigate(`/bigdata-pretest/${dropDownState.year}/${dropDownState.county}/${dropDownState.district}`);
+    navigate(`/${dropDownState.year}/${dropDownState.county}/${dropDownState.district}`);
   };
   const isDisableSubmit = dropDownState.district === ''
   || dropDownState.county === ''
