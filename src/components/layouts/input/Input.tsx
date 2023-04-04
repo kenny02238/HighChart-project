@@ -105,7 +105,7 @@ export default function Input({ show, value, title }:Props) {
         {title}
       </div>
       <input
-        className={`w-[55%] h-full outline-none flex items-center ml-[16px] bg-white text-[16px] 
+        className={`w-[65%] h-full outline-none flex items-center ml-[16px] bg-white text-[16px] 
         ${isInputInit ? 'text-[#b6b6b6]' : 'text-[#333333]'} ${inputDisable && 'cursor-not-allowed'}
          ${value === 'year' ? 'w-[46%] sm:w-[46%]' : 'sm:w-[75%]'}`}
         onChange={handleInputChange}
