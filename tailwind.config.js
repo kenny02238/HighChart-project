@@ -2,6 +2,22 @@
 module.exports = {
   content: ['./public/**/*.html', './src/**/*.{js,jsx,ts,tsx,vue}'],
   theme: {
+    screens: {
+      '2xl': {'max': '1440px'},
+      // => @media (max-width: 1535px) { ... }
+
+      'xl': {'max': '1279px'},
+      // => @media (max-width: 1279px) { ... }
+
+      'lg': {'max': '921px'},
+      // => @media (max-width: 1023px) { ... }
+
+      'md': {'max': '671px'},
+      // => @media (max-width: 767px) { ... }
+
+      'sm': {'max': '522px'},
+      // => @media (max-width: 639px) { ... }
+    },
     fontFamily: {
       sans: ['Noto Sans TC', 'sans-serif'],
       ubuntu: ['Ubuntu','sans-serif'],

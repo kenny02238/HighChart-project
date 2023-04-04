@@ -17,21 +17,21 @@ export default function Main() {
   };
   const isDisableSubmit = dropDownState.district === '' || dropDownState.county === '' || dropDownState.district === '請先選擇縣/市' || dropDownState.county === '請選擇縣/市';
   return (
-    <main className="w-[calc(100%-149px)] ml-[149px] flex justify-center">
-      <div className="w-[77.8%] flex flex-col items-center">
-        <div className="text-[32px] mt-[16px]">人口數、戶數按戶別及性別統計</div>
+    <main className="w-[calc(100%-149px)] md:w-full md:ml-0 ml-[149px] flex justify-center">
+      <div className="w-[77.8%] min-w-[522px] flex flex-col items-center sm:min-w-0 sm:w-full sm:px-[9px]">
+        <div className="text-[32px] mt-[16px] md:text-[25px]">人口數、戶數按戶別及性別統計</div>
 
         {/* 搜尋匡  */}
-        <div className="mt-[48px] leading-[48px] w-full flex justify-center items-center">
-          <div className="relative">
+        <div className="mt-[48px] leading-[48px] w-full flex justify-center items-center flex-wrap md:mt-[30px] sm:justify-start">
+          <div className="relative grow-0">
             <Input show="isYearShow" value="year" title="年份" />
             <List lists={yearData} show="isYearShow" value="year" />
           </div>
-          <div className="mx-[1.2%] relative">
+          <div className="mx-[1.2%] relative sm:w-full sm:mt-[16px] sm:mx-0">
             <Input show="isCountyShow" value="county" title="縣/市" />
             <List lists={countyData} show="isCountyShow" value="county" />
           </div>
-          <div className="mr-[1.2%] relative">
+          <div className="mr-[1.2%] relative sm:w-full sm:mt-[16px] sm:mr-0">
             <Input show="isDistrictShow" value="district" title="區" />
             {dropDownState.districtList && <List lists={dropDownState.districtList} show="isDistrictShow" value="district" />}
           </div>
@@ -39,9 +39,10 @@ export default function Main() {
             type="submit"
             onClick={handleSubmit}
             disabled={isDisableSubmit}
-            className={`border flex justify-center items-center bg-black/[0.12] w-[83px] h-[36.5px] rounded ${isDisableSubmit && 'cursor-not-allowed'}`}
+            className={`border flex justify-center items-center w-[83px] h-[36.5px] rounded bg-[#651FFF]
+            ${isDisableSubmit && 'cursor-not-allowed bg-black/[0.12]'} sm:mt-[16px] sm:w-full`}
           >
-            <div className="font-ubuntu font-bold text-[14px] text-[#00000042]/[0.26]">Submit</div>
+            <div className={`font-ubuntu font-bold text-[14px] ${isDisableSubmit && 'text-[#00000042]/[0.26]'} text-white`}>Submit</div>
           </button>
         </div>
         {/* 搜尋結果 */}

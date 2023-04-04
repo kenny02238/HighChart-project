@@ -97,12 +97,26 @@ function PieChart() {
       symbolWidth: 10,
       symbolHeight: 10,
     },
+    responsive: {
+      rules: [{
+        condition: {
+          maxWidth: 600,
+        },
+        chartOptions: {
+          plotOptions: {
+            pie: {
+              size: '65%',
+            },
+          },
+        },
+      }],
+    },
     credits: false,
   };
 
   return (
-    <div>
-      <HighchartsReact highcharts={Highcharts} options={options} containerProps={{ style: { height: '600px' } }} />
+    <div className="h-[600px] lg:h-[350px]">
+      <HighchartsReact highcharts={Highcharts} options={options} containerProps={{ style: { height: '100%' } }} />
     </div>
   );
 }

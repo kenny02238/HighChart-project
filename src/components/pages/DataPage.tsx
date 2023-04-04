@@ -66,10 +66,6 @@ export default function DataPage() {
         );
         chartDispatch({ type: 'barChart', payload: { value: barChartData } });
         chartDispatch({ type: 'pieChart', payload: { value: pieChartData } });
-        console.log(response);
-        console.log(pieChartData);
-        // console.log(totals.dataMale);
-        // console.log(totals.dataFemale);
         setIsLoading(false);
       } catch (err) {
         // 暫用alert處理err
@@ -83,8 +79,10 @@ export default function DataPage() {
   return (
     <div className="font-sans">
       <Header />
-      <div className="mt-[8px]">
-        <Aside />
+      <div className="mt-[8px] relative">
+        <div className="absolute top-0 left-0 -z-10">
+          <Aside />
+        </div>
         <Main />
       </div>
       {/* 轉圈圈動畫 */}

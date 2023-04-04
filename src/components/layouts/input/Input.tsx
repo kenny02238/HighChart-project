@@ -54,7 +54,7 @@ export default function Input({ show, value, title }:Props) {
     <div
       className={`border rounded-[4px] ${value === 'year' ? 'w-[73px]' : 'w-[165px]'} 
       h-[40px] relative border-[#B6B6B6] flex flex-wrap items-center 
-      ${dropDownState[show] && ' border-sky-600 border-[2px]'}`}
+      ${dropDownState[show] && ' border-sky-600 border-[2px]'} ${value === 'year' || 'sm:w-full'}`}
       ref={containerRef}
       onBlur={handleBlurContainer}
     >
@@ -81,7 +81,7 @@ export default function Input({ show, value, title }:Props) {
         <img
           src={cross}
           alt="Cross"
-          className={`w-[12px] h-[12px] absolute right-[24.24%] cursor-pointer ${dropDownState[show] ? 'top-[13px]' : 'top-[14px]'}`}
+          className={`w-[12px] h-[12px] absolute right-[24.24%] cursor-pointer ${dropDownState[show] ? 'top-[13px]' : 'top-[14px]'} sm:right-[12%]`}
         />
       </div>
       )}

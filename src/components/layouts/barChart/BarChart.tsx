@@ -15,6 +15,7 @@ export default function BarChart() {
     },
     chart: {
       type: 'column',
+      backgroundColor: 'rgba(255, 255, 255, 0)',
     },
     xAxis: {
       categories: ['共同生活', '獨立生活'],
@@ -83,11 +84,44 @@ export default function BarChart() {
         },
       },
     }],
+    responsive: {
+      rules: [
+        {
+          condition: {
+            maxWidth: 522,
+          },
+          chartOptions: {
+            chart: {
+              height: 500,
+            },
+            legend: {
+              layout: 'horizontal',
+              align: 'center',
+              verticalAlign: 'bottom',
+            },
+            labels: {
+              style: {
+                fontWeight: 100,
+                fontSize: '12px',
+              },
+            },
+            yAxis: {
+              labels: {
+                style: {
+                  fontSize: '12px',
+                },
+              },
+            },
+          },
+        },
+      ],
+    },
+
     credits: false,
   };
   return (
-    <div className="w-full">
-      <HighchartsReact highcharts={Highcharts} options={options} containerProps={{ style: { height: '600px' } }} />
+    <div className="w-full h-[610px] sm:h-[500px]">
+      <HighchartsReact highcharts={Highcharts} options={options} containerProps={{ style: { height: '100%' } }} />
     </div>
   );
 }
