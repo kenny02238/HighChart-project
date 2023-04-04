@@ -11,8 +11,8 @@ function App() {
         <DropDownProvider>
           <Routes>
             <Route path="*" element={<ErrorPage />} />
-            <Route path="/bigdata-pretest" element={<HomePage />} />
-            <Route path="/bigdata-pretest/:year/:county/:district" element={<DataPage />} />
+            <Route path="/" element={<HomePage />} />
+            <Route path="/:year/:county/:district" element={<DataPage />} />
           </Routes>
         </DropDownProvider>
       </ChartProvider>
