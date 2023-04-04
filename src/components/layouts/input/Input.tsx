@@ -4,7 +4,7 @@ import React, {
 import arrowDropDown from '../../../assets/images/arrow_drop_down.png';
 import cross from '../../../assets/images/cross.png';
 import { DropDownContext } from '../../../store/contexts';
-import { countyData } from '../../../constant/constant';
+import { countyData, yearData } from '../../../constant/constant';
 import { upDateDropDownShow, upDateDropDownData, upDateDropDownAllShow } from '../../../store/actions/dropDownAction';
 
 type Props = {
@@ -45,6 +45,11 @@ export default function Input({ show, value, title }:Props) {
     if (dropDownState[show] && !containerRef.current?.contains(e.relatedTarget as Node)) {
       dropDownDispatch(upDateDropDownShow(show, false));
     }
+    if (value === 'year' && !yearData.includes(dropDownState.year)) {
+      // 暫時用aleat提醒使用者
+      alert('請正確選擇年份');
+      dropDownDispatch(upDateDropDownData('county', ''));
+    }
     if (value === 'county' && !countyData.includes(dropDownState.county)) {
       // 暫時用aleat提醒使用者
       alert('請正確選擇縣/市');
@@ -75,7 +80,7 @@ export default function Input({ show, value, title }:Props) {
   && (dropDownState.county === '' || dropDownState.county === '請選擇縣/市' || dropDownState.county === '');
 
   const inputDisable = (value !== 'year' && value !== 'county')
-  && (dropDownState.county === '' || dropDownState.county === '請選擇縣/市');
+  && (dropDownState.county === '' || dropDownState.county === '請選擇縣/市' || !dropDownState.year);
   return (
     <div
       className={`border rounded-[4px] ${value === 'year' ? 'w-[73px]' : 'w-[165px]'} 
@@ -86,7 +91,7 @@ export default function Input({ show, value, title }:Props) {
     >
       <div className={`absolute w-[30px] h-[10px] bg-white text-[12px] 
       flex justify-center items-center left-[11px] 
-      ${validDistrict ? 'text-[#b6b6b6]' : ''} 
+      ${inputDisable ? 'text-[#b6b6b6]' : ''} 
       ${dropDownState[show] ? '-top-[6.5px] text-sky-600' : '-top-[5px]'} 
       ${!validDistrict && !dropDownState[show] ? 'text-[#333333]' : ''}`}
       >

@@ -1,6 +1,6 @@
 export const upDateDropDownData = (
   type:string | undefined,
-  value:string | string[] | undefined | null,
+  value:string | string[] | number | undefined | null,
 ) => ({
   type,
   payload: { value },

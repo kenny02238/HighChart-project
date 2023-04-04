@@ -18,7 +18,8 @@ export default function Main() {
   const isDisableSubmit = dropDownState.district === ''
   || dropDownState.county === ''
   || dropDownState.district === '請先選擇縣/市'
-  || dropDownState.county === '請選擇縣/市';
+  || dropDownState.county === '請選擇縣/市'
+  || !dropDownState.year;
   return (
     <main className="w-[calc(100%-149px)] md:w-full md:ml-0 ml-[149px] flex justify-center">
       <div className="w-[77.8%] min-w-[522px] flex flex-col items-center sm:min-w-0 sm:w-full sm:px-[9px]">

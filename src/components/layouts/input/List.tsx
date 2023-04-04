@@ -34,8 +34,8 @@ export default function List({ lists, value, show }:Props) {
         console.log(err);
       }
     };
-    fetchDistrict();
-  }, [dropDownState.county, year, county, district]);
+    if (dropDownState.county && dropDownState.year) { fetchDistrict(); }
+  }, [dropDownState.county, dropDownState.year, year, county, district]);
 
   const handleList:React.MouseEventHandler<HTMLButtonElement> = (e:React.MouseEvent<HTMLButtonElement>) => {
     const target = e.target as HTMLElement;
