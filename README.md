@@ -1,6 +1,6 @@
 # 人口資料-圖表
 
-- [LiveDemo](https://codesandbox.io/p/github/kenny02238/bigdata-pretest/main)
+- [LiveDemo](https://h66g1e-3000.csb.app/)
 
 # 使用技術：
 1. Airbnb coding style用Eslint typeScript Airbnb<br>
