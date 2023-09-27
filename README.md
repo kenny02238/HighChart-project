@@ -1,7 +1,5 @@
 # 人口資料-圖表
 
-- [LiveDemo](https://h66g1e-3000.csb.app/)
-
 # 使用技術：
 1. Airbnb coding style用Eslint typeScript Airbnb<br>
 2. 外觀部分採用tailwindcss<br>
